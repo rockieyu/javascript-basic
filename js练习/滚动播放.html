@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滚动播放</title>
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    } 
+
+    /* 给ul加绝对定位，相对于父级div移动。移动整个ul而不是单张 */
+    #back{
+        position: relative;
+        margin: 100px auto;
+        background: rosybrown;
+        width: 600px;
+        height: 150px;
+        overflow: hidden; 
+        /* 把overflow 可以看到实际行动情况*/
+    }
+
+    #back ul{
+        position: absolute;
+        top:0;
+        left:0;
+    }
+    #back ul li{
+        list-style: none;
+        float: left;
+    }
+    img{
+        width:150px
+    }
+
+    #bts{   
+        margin: 0 auto;
+        text-align: center;
+    }
+
+</style>
+
+
+<script>
+    window.onload = function(){
+        var back = document.getElementById('back')
+        var piclist = document.getElementById('list')
+        var picitem = piclist.getElementsByTagName('img')
+        var left = document.getElementById('left')
+        var right = document.getElementById('right')
+
+        var speed = 2; // 改speed可以决定快慢和方向
+
+        piclist.innerHTML = piclist.innerHTML + piclist.innerHTML; // 再复制4个img来实现头尾相接
+        
+        // 复制后新的问题是 ul的长度只能容纳4张图，float图片会溢出，所以这里动态更改ul的width
+        piclist.style.width = picitem.length * picitem[0].offsetWidth +'px'
+
+
+        function roll(){
+            // 这里用到的offsetLeft很重要，他返回的是一个数字，而且是computed，也就是不止left，还会自动加上margin之类
+            // 千万不能写成 piclist.style.left -= '3px' string是没法相减的嘛
+            piclist.style.left = piclist.offsetLeft - speed +'px'; 
+            
+            // 当一组尾部结束的时候，马上把它给重新设为头 可以console.log帮助理解 
+            // 向左滚动时
+            if (piclist.offsetLeft < - piclist.offsetWidth/2){
+                piclist.style.left = 0;
+            } 
+            // 向右滚动时
+            if (piclist.offsetLeft > 0){
+                piclist.style.left = - piclist.offsetWidth/2 + 'px'
+            } 
+        }
+
+        var timer = setInterval(() => { roll() }, 30);
+
+        // 移入停止移除滚动效果
+        piclist.onmouseover = function(){
+            clearInterval(timer)
+        }
+        piclist.onmouseout = function(){
+            timer = setInterval(() => { roll() }, 30);
+            //  一定要记得写 timer= 给timer重新赋值，不然快得飞起
+        }
+
+        left.onclick = function(){
+            speed = 2;
+        }
+        right.onclick = function(){
+            speed = -2;
+        }
+    }
+</script>
+
+</head>
+
+<body>
+    <div id='back'>
+        <ul id='list'>
+            <li><img src='images/blue.jpg'></li>
+            <li><img src='images/moon.png'></li>
+            <li><img src='images/george.png'></li>
+            <li><img src='images/jessie.jpg'></li>
+        </ul>
+    </div>
+    <div id='bts'>
+        <button id='left'>向左滚动</button>
+        <button id='right'>向右滚动</button>
+    </div>
+</body>
+
+</html>

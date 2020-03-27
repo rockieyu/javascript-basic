@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    <style>
+        button.active{
+            color: cornflowerblue;
+        }
+        div{
+            width: 200px;
+            height: 200px;
+            background-color: cadetblue;
+            display:none;
+        }
+        div.active{
+            display: block;
+        }
+    </style>
+
+    <script>
+        window.onload = function(){
+            var bts = document.getElementsByTagName('button')
+            var contents = document.getElementsByTagName('div')
+
+            // 给每个button都加上click的function 
+            for (var i = 0; i < bts.length; i++){
+                bts[i].index = i  //给每个btn加了一个index 主要为了对应的div可以选中index
+                bts[i].onclick = function(){
+                    for (var i = 0; i <bts.length; i++){
+                        bts[i].className = ''
+                        contents[i].className = ''
+                    } // click触发时，先将所有的button变为默认模式 再把选中的元素加上class
+                    this.className = 'active'
+                    contents[this.index].className = 'active'
+                    
+                    
+                }
+            }
+        }
+    </script>
+
+    </head>
+    <body>
+        <button>education</button>
+        <button>training</button>
+        <button>employ</button>
+        <button>study</button>
+
+        <div class='active'>内容1</div>
+        <div>内容2</div>
+        <div>内容3</div>
+        <div>内容4</div>
+    </body>
+</html>

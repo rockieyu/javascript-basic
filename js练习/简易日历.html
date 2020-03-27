@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    
+        <style>
+            .calendar{
+                width:400px;
+                height: 700px;
+                display: flex;
+                flex-direction: column;
+                margin:auto;
+                justify-content: center;
+                align-items: center;
+                
+            }
+
+            ul {
+                display: flex;
+                flex-wrap: wrap;
+                width:300px;
+                height: 400px;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+            }
+
+            li{
+                width:80px;
+                height: 80px;
+                margin: 10px;
+                list-style: none;
+                text-align: center;
+                background-color: darkgray;
+                color: white;
+            }
+
+            li h2{
+                margin: 10px 0;
+            }
+
+            li.active{
+                background-color: lavender;
+                color: black;
+            }
+
+            div{
+                width:260px;
+                background-color: khaki ;
+                padding:10px
+            
+            }
+
+
+
+        </style>
+
+        <script>
+            window.onload = function(){
+                var arr=[
+                    '万物复苏大地回春',
+                    '这个2月有点难',
+                    '春春初春',
+                    '清明时节雨纷纷',
+                    '五月...五月天棒呆',
+                    '不止儿童可以过儿童节',
+                    '啊 夏天 美好的夏天',
+                    '没那么热大概就更美好了',
+                    '开学的月份 耶',
+                    '我和我的祖国 一刻也不能分割',
+                    '开始入冬',
+                    '又到了冬眠的季节'
+                ]
+
+                
+                var months = document.getElementsByTagName('li')
+                var detail = document.getElementById('detail')
+
+                for (var i=0; i<months.length; i++){
+
+                    months[i].index = i //相当于给每个li标签加了一个index属性喔
+                    months[i].onmouseover = function(){
+                        for (var i=0; i<months.length; i++){
+                            months[i].className = ''; //每次mouseover时先删去所有class
+                        }
+                        this.className = 'active' ; //再将当前选中的设为active
+
+                        detail.innerHTML = '<h2>'+ (this.index+1) +'月</h2><p>' + arr[this.index] +'</p>';
+
+                    }
+                
+                }
+            }
+        </script>
+
+    </head>
+
+    <body>  
+        <section class='calendar'>
+            <ul>
+                <li class='active'><h2>1</h2><p>JAN</p></li>
+                <li><h2>2</h2><p>FEB</p></li>
+                <li><h2>3</h2><p>MAR</p></li>
+                <li><h2>4</h2><p>APR</p></li>
+                <li><h2>5</h2><p>MAY</p></li>
+                <li><h2>6</h2><p>JUNE</p></li>
+                <li><h2>7</h2><p>JULY</p></li>
+                <li><h2>8</h2><p>AUG</p></li>
+                <li><h2>9</h2><p>SEP</p></li>
+                <li><h2>10</h2><p>OCT</p></li>
+                <li><h2>11</h2><p>NOV</p></li>
+                <li><h2>12</h2><p>DEC</p></li>
+            </ul>
+
+            <div id='detail'>
+                <h2>1月</h2>
+                <p>万物复苏大地回春</p>
+            </div>
+        </section>
+    </body>
+
+</html>

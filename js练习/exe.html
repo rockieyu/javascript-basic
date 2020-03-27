@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>balabala</title>
+        <style>
+
+        </style>
+        <script>
+            window.onload=function(){
+                var bt1 = document.getElementById('bt1')
+                var bt2 = document.getElementById('bt2')
+                var bt3 = document.getElementById('bt3')
+                var checks = document.getElementsByTagName('input')
+
+                bt1.onclick = function(){               
+                    for(var i=0; i<checks.length; i++){
+                        checks[i].checked = true;
+                    }
+                }
+
+                bt2.onclick = function(){
+                    for(var i=0; i<checks.length; i++){
+                        checks[i].checked = false;
+                    }
+                }
+
+                bt3.onclick = function(){
+                    for(var i=0; i<checks.length; i++){
+                        if (checks[i].checked == true){
+                            checks[i].checked = false
+                        }
+                        else {
+                            checks[i].checked = true
+                        }
+                    }
+                }
+                
+            }
+        </script>
+
+    </head>
+
+    <body>
+        <button id='bt1'>全选</button>
+        <button id='bt2'>不选</button>
+        <button id='bt3'>反选</button>
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+        <input type="checkbox">
+
+    </body>
+</html>
