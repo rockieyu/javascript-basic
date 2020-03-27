@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    
+</style>
+<script>
+
+    window.onload = function (){
+
+    var imgs = document.getElementsByTagName('img')
+     
+    // var str = '013655' 主要思路是获取这样一个六位字符串 并替换图片路径
+    // time.getHours() ---> int 我们需要08，但会返回数字8，所以要写个函数将数字转化为两位字符串
+    function getTime (time){
+        if (time < 10){
+            return '0'+time
+        }
+        else{
+            return ''+ time 
+        }
+    }
+        
+    // set interval 每秒都改变图片src
+    setInterval(() => {
+        var now = new Date() //每秒获取一次系统时间 它有很多内置函数 
+        var timstr = getTime(now.getHours()) + getTime(now.getMinutes()) +getTime(now.getSeconds())
+        
+        console.log(timstr)
+
+        for( var i=0; i<imgs.length; i++){
+        // imgs[i].src = 'images/'+timestr[i] +'.jpg'
+    }
+
+    }, 1000);
+
+
+
+
+    }
+</script>
+
+
+<body>
+    <img src='images/0.jpg'>
+    <img src='images/0.jpg'>
+    :
+    <img src='images/0.jpg'>
+    <img src='images/0,jpg'>
+    :
+    <img src='images/0.jpg'>
+    <img src='images/0.jpg'>
+</body>
+</html>
