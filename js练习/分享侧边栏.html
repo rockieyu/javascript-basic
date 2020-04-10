@@ -1,0 +1,129 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #content{
+            width: 150px;
+            height: 200px;
+            position: absolute;
+            background-color: gray;
+            left:-150px;
+        }
+        #content span{
+            width: 10px;
+            height: 70px;
+            position: absolute;
+            right: -10px;
+            top: 100px;
+            background-color: gold;
+        }
+
+        #slowdown{
+            width: 200px;
+            height: 200px;
+            background-color: darkseagreen;
+            position: absolute;
+            top:400px;
+        }
+
+        #line{
+            width: 1px;
+            height: 600px;
+            background-color: black;
+            position: absolute;
+            left:400px;
+        }
+
+    </style>
+    <script>
+        window.onload = function(){
+            var oDiv = document.getElementById('content');
+            var oSlow = document.getElementById('slowdown');
+            
+            oDiv.onmouseover = function(){
+                move(0);
+            };
+
+            oDiv.onmouseout = function(){
+                move(-150);
+            };
+
+            oSlow.onmouseover = function(){
+                slow(400);
+            }
+        };
+
+        var timerShare = null;
+        var timerMove = null;
+
+        function move(target){
+            var oDiv = document.getElementById('content');
+            var speed = 0;
+
+            if (oDiv.offsetLeft < target){
+                speed = 10
+            }
+            else{
+                speed = -10
+            }; //判断当前位置和目标位置 来确定移动方向
+
+            clearInterval(timerShare);
+            timerShare = setInterval(function(){
+                if (oDiv.offsetLeft == target){
+                    clearInterval(timer)
+                }
+                else{
+                    oDiv.style.left = oDiv.offsetLeft + speed +'px'
+                }
+            },30);
+        };
+
+
+        function slow(target){
+            var oSlow = document.getElementById('slowdown');
+            
+
+            clearInterval(timerMove);
+            timerMove = setInterval(function(){
+                var speed = (target - oSlow.offsetLeft)/10;// 速度是个变量，速度的大小和与target的距离成正比，距离越远，速度越快
+                
+                //速度为正（即向右移动left值变大时）向上取整，速度为负（向左移动left值变小）向下取整
+                //否则无法真正到达target的值，因为speed/10后变为小数被舍去
+                if (speed>0){
+                    speed = Math.ceil(speed)
+                }
+                else{
+                    speed = Math.floor(speed)
+                }
+
+                if (oSlow.offsetLeft == target){
+                    clearInterval(timerMove)
+                }
+                else{
+                    oSlow.style.left = oSlow.offsetLeft + speed + 'px'
+                }
+                
+                document.title = oSlow.offsetLeft +',' + speed;
+
+            },30)
+
+            
+        }
+
+
+    </script>
+</head>
+<body>
+    <div id='content'>
+        <span>分享到</span>
+    </div>
+
+    <div id='slowdown'>
+    </div>
+
+    <div id='line'></div>
+</body>
+</html>
